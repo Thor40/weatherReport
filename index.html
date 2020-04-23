@@ -17,18 +17,23 @@
     </div>
 
     <!-- main -->
-    <main class="flex-row justify-space-between">
+    <main class="row justify-space-between">
         <div class="col-12 col-md-3">
             <div class="card">
                 <h3 class="card-header">Search By City</h3>
-                <form id="user-form" class="card-body">
+                <form id="user-form" class="card-body d-flex">
                     <label for="city" class="form-label"></label>
                     <input type="text" name="city" id="city-input" autofocus="true" class="form-input w-75" />
-                    <button type="submit" class="btn">
+                    <button type="submit" class="btn mx-auto border bg-primary">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
             </div>
+        </div>
+            <!-- right col -->
+        <div class="col-12 col-md-9 border">
+            <h2 class="subtitle">City<span id="weather-search-term"></span></h2>
+            <div id="weather-container" class="list-group"></div>
         </div>
     </main>
 
