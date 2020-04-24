@@ -5,7 +5,7 @@ var weatherSearchTerm = document.querySelector("#weather-search-term");
 var currentDate = moment().format("dddd, MMMM Do YYYY");
     // div holding weather report
     var weatherEl = document.createElement("div");
-    weatherEl.classList = "flex-column list-group align-left";
+    weatherEl.classList = "flex-column list-group list-group-flush align-left";
 
 var getCity = function(city) {
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=e30b91e5b089d12b97f22fef450b5850";
@@ -53,17 +53,21 @@ var displayCity = function(data, searchTerm) {
     weatherIconCurrent.textContent = data.weather.description;
     // weather info
     var tempEl = document.createElement("li");
+    var feelEl = document.createElement("span");
+    feelEl.textContent = "Feels like: " + data.main.feels_like + "° F";
+    feelEl.classList = "badge badge-secondary"
     tempEl.classList = "list-group-item w-25"
-    tempEl.textContent = "Temperature: " + data.main.temp + "° F";
+    tempEl.textContent = "Temperature: " + data.main.temp + "° F ";
     // humidity info
     var humidEl = document.createElement("li");
-    humidEl.classList = "list-group-item w-25 border-top"
+    humidEl.classList = "list-group-item w-25"
     humidEl.textContent = "Humidity: " + data.main.humidity;
     // wind speed info
     var windEl = document.createElement("li");
-    windEl.classList = "list-group-item w-25 border-top"
+    windEl.classList = "list-group-item w-25"
     windEl.textContent = "Wind Speed: " + data.wind.speed + " MPH";
 
+    tempEl.appendChild(feelEl);
     weatherEl.appendChild(weatherIconCurrent);
     weatherEl.appendChild(tempEl);
     weatherEl.appendChild(humidEl);
@@ -79,7 +83,19 @@ var displayUV = (function(data) {
     // UV Index info
     var uvEl = document.createElement("li");
     uvEl.classList = "list-group-item w-25"
-    uvEl.textContent = "UV Index: " + data.value + "";
+    var uvSpan = document.createElement("span");
+    uvSpan.textContent = data.value
+
+    if (data.value >= 8) {
+        uvSpan.classList = "badge badge-danger" 
+    } else if (data.value >= 6 || data.value <= 7) {
+        uvSpan.classList = "badge badge-warning" 
+    } else {
+        uvSpan.classList= "badge badge-success"   
+    };
+    console.log(uvSpan)
+    uvEl.textContent = "UV Index: ";
+    uvEl.appendChild(uvSpan);
     weatherEl.appendChild(uvEl);
 });
 
