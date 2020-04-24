@@ -10,41 +10,50 @@ var getCity = function(city) {
     // make a request to the url
     fetch(apiUrl).then(function(response) {
         response.json().then(function(data) {
+        if (response.ok) {
             displayCity(data, city);
-        });
-    //     if (response.ok) {
-
-    //     } else {
-    //         alert("Error: " + response.statusText);
-    //     }
-    // })
+        } else {
+            alert("Error: City " + response.statusText);
+        }
+    })
     });
 };
+
 
 var displayCity = function(data, searchTerm) {
     console.log(data);
     console.log(searchTerm);
+    var iconcode = data.weather[0].icon;
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
     var setCurrentDate = currentDate;
     setCurrentDate.classList = "text-muted"
     
     weatherContainerEl.textContent = "";
-    weatherSearchTerm.textContent = searchTerm + setCurrentDate;
+    weatherSearchTerm.textContent = searchTerm + " - " + setCurrentDate;
+    var iconImg = document.createElement("img");
+    iconImg.setAttribute("src", iconurl)
 
     // div holding weather repot
     var weatherEl = document.createElement("div");
-    weatherEl.classList = "flex-row list-group align-left";
+    weatherEl.classList = "flex-column list-group align-left";
     // title of city
     var titleEl = document.createElement("span");
     titleEl.classList = "flex-row";
     titleEl.textContent = name;
     // weather info
     var tempEl = document.createElement("li");
-    tempEl.classList = "list-group-item"
-    tempEl.textContent = "Temperature: " + data.main.temp + "°";
+    tempEl.classList = "list-group-item w-25"
+    tempEl.textContent = "Temperature: " + data.main.temp + "° F";
+    // humidity info
+    var humidEl = document.createElement("li");
+    humidEl.classList = "list-group-item w-25 border-top"
+    humidEl.textContent = "Humidity: " + data.main.humidity;
 
     weatherEl.appendChild(titleEl);
     weatherEl.appendChild(tempEl);
+    weatherEl.appendChild(humidEl);
+    weatherEl.appendChild(iconImg);
 
     weatherContainerEl.appendChild(weatherEl);    
 
