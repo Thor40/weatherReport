@@ -32,7 +32,7 @@ var getCity = function(city) {
     };
 
 var getForecast = function(city) {
-    var apiForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=e30b91e5b089d12b97f22fef450b5850";
+    var apiForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=e30b91e5b089d12b97f22fef450b5850";
             fetch(apiForecast)
         .then(function(response) {
             return response.json();
@@ -109,10 +109,10 @@ var displayUV = (function(data) {
 });
 
 var displayForecast = function(data) {
-    // var iconcode = data.list[2].weather.icon;
-    // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    // var iconImg = document.createElement("img");
-    // iconImg.setAttribute("src", iconurl)
+    var iconcode = data.list[0].weather[0].icon;
+    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    var iconImg = document.createElement("img");
+    iconImg.setAttribute("src", iconurl)
 
     var forecastTitle = document.createElement("h3");
     forecastTitle.textContent = "5 Day Forecast: "
@@ -128,12 +128,12 @@ var displayForecast = function(data) {
     forecastCardBody.classList = "card-body"
 
     var tempEl = document.createElement("li");
-    tempEl.classList = "list-group-item w-25 d-flex justify-content-between"
+    tempEl.classList = "list-group-item d-flex justify-content-between"
     tempEl.textContent = "Temperature: " + data.list[2].main.temp + "° F ";
 
     // humidity info
     var humidEl = document.createElement("li");
-    humidEl.classList = "list-group-item w-25"
+    humidEl.classList = "list-group-item"
     humidEl.textContent = "Humidity: " + data.list[2].main.humidity;
     
 
@@ -142,6 +142,7 @@ var displayForecast = function(data) {
     forecastCardBody.appendChild(fcTitle)
  
     forecastContainerEl.appendChild(forecastCard);
+    forecastCardBody.appendChild(iconImg);
     forecastCardBody.appendChild(tempEl);
     forecastCardBody.appendChild(humidEl);
     //     }
