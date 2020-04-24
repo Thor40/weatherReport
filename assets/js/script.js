@@ -3,19 +3,31 @@ var cityInputEl = document.querySelector("#city-input")
 var weatherContainerEl = document.querySelector("#weather-container");
 var weatherSearchTerm = document.querySelector("#weather-search-term");
 var currentDate = moment().format("dddd, MMMM Do YYYY");
+    // div holding weather report
+    var weatherEl = document.createElement("div");
+    weatherEl.classList = "flex-column list-group align-left";
 
 var getCity = function(city) {
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=e30b91e5b089d12b97f22fef450b5850";
-
     // make a request to the url
-    fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
-        if (response.ok) {
+    fetch(apiUrl)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
             displayCity(data, city);
-        } else {
-            alert("Error: City " + response.statusText);
-        }
-    })
+            var latEl = data.coord.lat;
+            var lonEl = data.coord.lon;
+            console.log(latEl);
+            console.log(lonEl);
+            return fetch("http://api.openweathermap.org/data/2.5/uvi?appid=e30b91e5b089d12b97f22fef450b5850&lat=" + latEl + "&lon=" + lonEl +"");
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            displayUV(data);
     });
 };
 
@@ -29,18 +41,16 @@ var displayCity = function(data, searchTerm) {
     var setCurrentDate = currentDate;
     setCurrentDate.classList = "text-muted"
     
-    weatherContainerEl.textContent = "";
-    weatherSearchTerm.textContent = searchTerm + " - " + setCurrentDate;
+
     var iconImg = document.createElement("img");
     iconImg.setAttribute("src", iconurl)
-
-    // div holding weather repot
-    var weatherEl = document.createElement("div");
-    weatherEl.classList = "flex-column list-group align-left";
-    // title of city
-    var titleEl = document.createElement("span");
-    titleEl.classList = "flex-row";
-    titleEl.textContent = name;
+    
+    weatherContainerEl.textContent = "";
+    weatherSearchTerm.textContent = data.name + " - " + setCurrentDate;
+    // current weather
+    var weatherIconCurrent = document.createElement("span");
+    weatherIconCurrent.classList = "flex-row";
+    weatherIconCurrent.textContent = data.weather.description;
     // weather info
     var tempEl = document.createElement("li");
     tempEl.classList = "list-group-item w-25"
@@ -49,15 +59,29 @@ var displayCity = function(data, searchTerm) {
     var humidEl = document.createElement("li");
     humidEl.classList = "list-group-item w-25 border-top"
     humidEl.textContent = "Humidity: " + data.main.humidity;
+    // wind speed info
+    var windEl = document.createElement("li");
+    windEl.classList = "list-group-item w-25 border-top"
+    windEl.textContent = "Wind Speed: " + data.wind.speed + " MPH";
 
-    weatherEl.appendChild(titleEl);
+    weatherEl.appendChild(weatherIconCurrent);
     weatherEl.appendChild(tempEl);
     weatherEl.appendChild(humidEl);
-    weatherEl.appendChild(iconImg);
+    weatherEl.appendChild(windEl);
+    weatherSearchTerm.appendChild(iconImg);
 
     weatherContainerEl.appendChild(weatherEl);    
 
 };
+
+var displayUV = (function(data) {
+    console.log(data);
+    // UV Index info
+    var uvEl = document.createElement("li");
+    uvEl.classList = "list-group-item w-25"
+    uvEl.textContent = "UV Index: " + data.value + "";
+    weatherEl.appendChild(uvEl);
+});
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -67,7 +91,7 @@ var formSubmitHandler = function(event) {
 
     if(city) {
         getCity(city);
-        cityInputEl = "";
+        cityInputEl.value = "";
     } else {
         alert("Please enter a valid city name");
     }
