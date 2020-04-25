@@ -20,6 +20,7 @@ var getCity = function(city) {
             return response.json();
         })
         .then(function(data) {
+            console.log(data);
             displayCity(data, city);
             var latEl = data.coord.lat;
             var lonEl = data.coord.lon;
@@ -87,8 +88,7 @@ var displayCity = function(data) {
     weatherEl.appendChild(windEl);
     weatherSearchTerm.appendChild(iconImg);
 
-    weatherContainerEl.appendChild(weatherEl);   
-    
+    weatherContainerEl.appendChild(weatherEl);
 };
 
 var displayUV = (function(data) {
@@ -111,6 +111,7 @@ var displayUV = (function(data) {
 });
 
 var displayForecast = function(data) {
+    forecastContainerEl.innerHTML = "";
     var currentDateEl = moment().format().split("T")[0];
     var datePlusOne = moment().add(1, 'days').format().split("T")[0];
     var datePlusTwo = moment().add(2, 'days').format().split("T")[0];
