@@ -136,7 +136,7 @@ var displayForecast = function(data) {
         
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
-            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "°";
         
             // humidity info
             var humidEl = document.createElement("li");
@@ -164,7 +164,7 @@ var displayForecast = function(data) {
         
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
-            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "°";
         
             // humidity info
             var humidEl = document.createElement("li");
@@ -192,7 +192,7 @@ var displayForecast = function(data) {
         
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
-            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "°";
         
             // humidity info
             var humidEl = document.createElement("li");
@@ -220,7 +220,7 @@ var displayForecast = function(data) {
         
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
-            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "°";
         
             // humidity info
             var humidEl = document.createElement("li");
@@ -249,7 +249,7 @@ var displayForecast = function(data) {
             //temp info 
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
-            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "°";
         
             // humidity info
             var humidEl = document.createElement("li");
