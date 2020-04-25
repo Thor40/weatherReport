@@ -7,8 +7,6 @@ var currentDate = moment().format("dddd, MMMM Do YYYY");
     // div holding weather report
     var weatherEl = document.createElement("div");
     weatherEl.classList = "flex-column list-group list-group-flush align-left";
-// var cityName = document.querySelector("#city-input").value
-// console.log(cityName);
 
 var getCity = function(city) {
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=e30b91e5b089d12b97f22fef450b5850";
@@ -109,42 +107,202 @@ var displayUV = (function(data) {
 });
 
 var displayForecast = function(data) {
-    var iconcode = data.list[0].weather[0].icon;
-    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    var iconImg = document.createElement("img");
-    iconImg.setAttribute("src", iconurl)
+    // var iconcode = data.list[0].weather[0].icon;
+    // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    // var iconImg = document.createElement("img");
+    // iconImg.setAttribute("src", iconurl)
 
-    var forecastTitle = document.createElement("h3");
-    forecastTitle.textContent = "5 Day Forecast: "
+    var currentDateEl = moment().format().split("T")[0];
+    var datePlusOne = moment().add(1, 'days').format().split("T")[0];
+    var datePlusTwo = moment().add(2, 'days').format().split("T")[0];
+    var datePlusThree = moment().add(3, 'days').format().split("T")[0];
+    var datePlusFour = moment().add(4, 'days').format().split("T")[0];
 
-    var fcTitle = document.createElement("h5");
-    fcTitle.classList = "card-title";
-    fcTitle.textContent = data.list[2].dt_txt.split(" ")[0];
+    for (var i = 0; i < data.list.length; i+=8) {
+        var iconcode = data.list[i].weather[0].icon;
+        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        var iconImg = document.createElement("img");
+        iconImg.setAttribute("src", iconurl)
 
-    var forecastCard = document.createElement("div");
-    forecastCard.classList = "card";
+        var forecastDate = data.list[i].dt_txt.split(" ")[0]
+        if (forecastDate === currentDateEl) {
+            var forecastTitle = document.createElement("h3");
+            forecastTitle.textContent = "5 Day Forecast: "
+        
+            var fcTitle = document.createElement("h5");
+            fcTitle.classList = "card-title";
+            fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+        
+            var forecastCard = document.createElement("div");
+            forecastCard.classList = "card border-0";
+        
+            var forecastCardBody = document.createElement("div");
+            forecastCardBody.classList = "card-body list-group-flush"
+        
+            var tempEl = document.createElement("li");
+            tempEl.classList = "list-group-item d-flex"
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+        
+            // humidity info
+            var humidEl = document.createElement("li");
+            humidEl.classList = "list-group-item"
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
+        
+            forecastContainerEl.appendChild(forecastTitle);
+            forecastCard.appendChild(forecastCardBody);
+            forecastCardBody.appendChild(fcTitle)
+         
+            forecastContainerEl.appendChild(forecastCard);
+            forecastCardBody.appendChild(iconImg);
+            forecastCardBody.appendChild(tempEl);
+            forecastCardBody.appendChild(humidEl);
+        } else if (forecastDate === datePlusOne) {
+            var fcTitle = document.createElement("h5");
+            fcTitle.classList = "card-title";
+            fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+        
+            var forecastCard = document.createElement("div");
+            forecastCard.classList = "card border-0";
+        
+            var forecastCardBody = document.createElement("div");
+            forecastCardBody.classList = "card-body list-group-flush"
+        
+            var tempEl = document.createElement("li");
+            tempEl.classList = "list-group-item d-flex"
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+        
+            // humidity info
+            var humidEl = document.createElement("li");
+            humidEl.classList = "list-group-item"
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
+            
+        
+            forecastCard.appendChild(forecastCardBody);
+            forecastCardBody.appendChild(fcTitle)
+         
+            forecastContainerEl.appendChild(forecastCard);
+            forecastCardBody.appendChild(iconImg);
+            forecastCardBody.appendChild(tempEl);
+            forecastCardBody.appendChild(humidEl);
+        } else if (forecastDate === datePlusTwo) {
+            var fcTitle = document.createElement("h5");
+            fcTitle.classList = "card-title";
+            fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+        
+            var forecastCard = document.createElement("div");
+            forecastCard.classList = "card border-0";
+        
+            var forecastCardBody = document.createElement("div");
+            forecastCardBody.classList = "card-body list-group-flush"
+        
+            var tempEl = document.createElement("li");
+            tempEl.classList = "list-group-item d-flex"
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+        
+            // humidity info
+            var humidEl = document.createElement("li");
+            humidEl.classList = "list-group-item"
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
+            
+        
+            forecastCard.appendChild(forecastCardBody);
+            forecastCardBody.appendChild(fcTitle)
+         
+            forecastContainerEl.appendChild(forecastCard);
+            forecastCardBody.appendChild(iconImg);
+            forecastCardBody.appendChild(tempEl);
+            forecastCardBody.appendChild(humidEl);
+        } else if (forecastDate === datePlusThree) {
+            var fcTitle = document.createElement("h5");
+            fcTitle.classList = "card-title";
+            fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+        
+            var forecastCard = document.createElement("div");
+            forecastCard.classList = "card border-0";
+        
+            var forecastCardBody = document.createElement("div");
+            forecastCardBody.classList = "card-body list-group-flush"
+        
+            var tempEl = document.createElement("li");
+            tempEl.classList = "list-group-item d-flex"
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+        
+            // humidity info
+            var humidEl = document.createElement("li");
+            humidEl.classList = "list-group-item"
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
+            
+        
+            forecastCard.appendChild(forecastCardBody);
+            forecastCardBody.appendChild(fcTitle)
+         
+            forecastContainerEl.appendChild(forecastCard);
+            forecastCardBody.appendChild(iconImg);
+            forecastCardBody.appendChild(tempEl);
+            forecastCardBody.appendChild(humidEl);
+        } else if (forecastDate === datePlusFour) {
+            var fcTitle = document.createElement("h5");
+            fcTitle.classList = "card-title";
+            fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+        
+            var forecastCard = document.createElement("div");
+            forecastCard.classList = "card border-0";
+        
+            var forecastCardBody = document.createElement("div");
+            forecastCardBody.classList = "card-body list-group-flush"
+        
+            var tempEl = document.createElement("li");
+            tempEl.classList = "list-group-item d-flex"
+            tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+        
+            // humidity info
+            var humidEl = document.createElement("li");
+            humidEl.classList = "list-group-item"
+            humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
+            
+        
+            forecastCard.appendChild(forecastCardBody);
+            forecastCardBody.appendChild(fcTitle)
+         
+            forecastContainerEl.appendChild(forecastCard);
+            forecastCardBody.appendChild(iconImg);
+            forecastCardBody.appendChild(tempEl);
+            forecastCardBody.appendChild(humidEl);
+        }
+    };
 
-    var forecastCardBody = document.createElement("div");
-    forecastCardBody.classList = "card-body"
 
-    var tempEl = document.createElement("li");
-    tempEl.classList = "list-group-item d-flex justify-content-between"
-    tempEl.textContent = "Temperature: " + data.list[2].main.temp + "° F ";
+    // var forecastTitle = document.createElement("h3");
+    // forecastTitle.textContent = "5 Day Forecast: "
 
-    // humidity info
-    var humidEl = document.createElement("li");
-    humidEl.classList = "list-group-item"
-    humidEl.textContent = "Humidity: " + data.list[2].main.humidity;
+    // var fcTitle = document.createElement("h5");
+    // fcTitle.classList = "card-title";
+    // fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
+
+    // var forecastCard = document.createElement("div");
+    // forecastCard.classList = "card";
+
+    // var forecastCardBody = document.createElement("div");
+    // forecastCardBody.classList = "card-body"
+
+    // var tempEl = document.createElement("li");
+    // tempEl.classList = "list-group-item d-flex justify-content-between"
+    // tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
+
+    // // humidity info
+    // var humidEl = document.createElement("li");
+    // humidEl.classList = "list-group-item"
+    // humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
     
 
-    forecastContainerEl.appendChild(forecastTitle);
-    forecastCard.appendChild(forecastCardBody);
-    forecastCardBody.appendChild(fcTitle)
+    // forecastContainerEl.appendChild(forecastTitle);
+    // forecastCard.appendChild(forecastCardBody);
+    // forecastCardBody.appendChild(fcTitle)
  
-    forecastContainerEl.appendChild(forecastCard);
-    forecastCardBody.appendChild(iconImg);
-    forecastCardBody.appendChild(tempEl);
-    forecastCardBody.appendChild(humidEl);
+    // forecastContainerEl.appendChild(forecastCard);
+    // forecastCardBody.appendChild(iconImg);
+    // forecastCardBody.appendChild(tempEl);
+    // forecastCardBody.appendChild(humidEl);
     //     }
     // }
 };
