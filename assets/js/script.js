@@ -166,6 +166,6 @@ var formSubmitHandler = function(event) {
 
 var forecast = function(event) {
 
-}
+};
 
 userFormEl.addEventListener("submit", formSubmitHandler);
