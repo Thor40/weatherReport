@@ -107,11 +107,6 @@ var displayUV = (function(data) {
 });
 
 var displayForecast = function(data) {
-    // var iconcode = data.list[0].weather[0].icon;
-    // var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-    // var iconImg = document.createElement("img");
-    // iconImg.setAttribute("src", iconurl)
-
     var currentDateEl = moment().format().split("T")[0];
     var datePlusOne = moment().add(1, 'days').format().split("T")[0];
     var datePlusTwo = moment().add(2, 'days').format().split("T")[0];
@@ -250,7 +245,8 @@ var displayForecast = function(data) {
         
             var forecastCardBody = document.createElement("div");
             forecastCardBody.classList = "card-body list-group-flush"
-        
+
+            //temp info 
             var tempEl = document.createElement("li");
             tempEl.classList = "list-group-item d-flex"
             tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
@@ -270,41 +266,6 @@ var displayForecast = function(data) {
             forecastCardBody.appendChild(humidEl);
         }
     };
-
-
-    // var forecastTitle = document.createElement("h3");
-    // forecastTitle.textContent = "5 Day Forecast: "
-
-    // var fcTitle = document.createElement("h5");
-    // fcTitle.classList = "card-title";
-    // fcTitle.textContent = data.list[i].dt_txt.split(" ")[0];
-
-    // var forecastCard = document.createElement("div");
-    // forecastCard.classList = "card";
-
-    // var forecastCardBody = document.createElement("div");
-    // forecastCardBody.classList = "card-body"
-
-    // var tempEl = document.createElement("li");
-    // tempEl.classList = "list-group-item d-flex justify-content-between"
-    // tempEl.textContent = "Temperature: " + data.list[i].main.temp + "° F ";
-
-    // // humidity info
-    // var humidEl = document.createElement("li");
-    // humidEl.classList = "list-group-item"
-    // humidEl.textContent = "Humidity: " + data.list[i].main.humidity;
-    
-
-    // forecastContainerEl.appendChild(forecastTitle);
-    // forecastCard.appendChild(forecastCardBody);
-    // forecastCardBody.appendChild(fcTitle)
- 
-    // forecastContainerEl.appendChild(forecastCard);
-    // forecastCardBody.appendChild(iconImg);
-    // forecastCardBody.appendChild(tempEl);
-    // forecastCardBody.appendChild(humidEl);
-    //     }
-    // }
 };
 
 var formSubmitHandler = function(event) {
