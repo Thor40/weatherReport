@@ -119,7 +119,7 @@ var displayForecast = function(data) {
 
     var fcTitle = document.createElement("h5");
     fcTitle.classList = "card-title";
-    fcTitle.textContent = data.list[2].dt_txt;
+    fcTitle.textContent = data.list[2].dt_txt.split(" ")[0];
 
     var forecastCard = document.createElement("div");
     forecastCard.classList = "card";
