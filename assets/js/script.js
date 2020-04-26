@@ -11,6 +11,8 @@ var currentDate = moment().format("dddd, MMMM Do YYYY");
     // div holding weather report
     var weatherEl = document.createElement("div");
     weatherEl.classList = "flex-column list-group list-group-flush align-left";
+var saveKey = [];
+
 
 var getCity = function(city) {
     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=e30b91e5b089d12b97f22fef450b5850";
@@ -49,6 +51,8 @@ var getForecast = function(city) {
 
 
 var displayCity = function(data) {
+    var removeContainer = document.createElement("div");
+    removeContainer.setAttribute('id', "removeContainer");
     var iconcode = data.weather[0].icon;
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
@@ -67,7 +71,9 @@ var displayCity = function(data) {
     weatherIconCurrent.textContent = data.weather.description;
     // weather info
     var tempEl = document.createElement("li");
+
     var feelEl = document.createElement("span");
+
     feelEl.textContent = "Feels like: " + data.main.feels_like + "° F";
     feelEl.classList = "badge badge-secondary"
     tempEl.classList = "list-group-item w-25 d-flex justify-content-between"
@@ -88,7 +94,9 @@ var displayCity = function(data) {
     weatherEl.appendChild(windEl);
     weatherSearchTerm.appendChild(iconImg);
 
-    weatherContainerEl.appendChild(weatherEl);
+    removeContainer.appendChild(weatherEl);
+    weatherContainerEl.appendChild(removeContainer)
+
 };
 
 var displayUV = (function(data) {
@@ -273,8 +281,14 @@ var displayForecast = function(data) {
     };
 };
 
+// var removeCityContainer = function() {
+//     var remove = document.getElementById("removeContainer")
+//     remove.parentNode.replaceChild(removeContainer);
+// }
+
 var formSubmitHandler = function(event) {
     event.preventDefault();
+    // removeCityContainer();
     
     //get value from input element
     var city = cityInputEl.value.trim();
@@ -283,32 +297,40 @@ var formSubmitHandler = function(event) {
         getCity(city);
         getForecast(city);
         saveCityHandler(city);
-        console.log(city);
         cityInputEl.value = "";
     } else {
         alert("Please enter a valid city name");
     }
 };
 
-var saveCityHandler = function(city) {
-    localStorage.setItem('city', city);
-    saveBtn();
+var saveCityHandler = function() {
+    saveKey.push(cityInputEl.value)
+    localStorage.setItem('city', JSON.stringify(saveKey));
+    createBtn(saveKey);
 };
 
-var saveBtn = function() {
-    var userCityBtn = document.createElement("button")
-    userCityBtn.classList = "btn btn-primary"
-    userCityBtn.setAttribute('id', id)
-    userCityBtn.textContent = id;
-
+var createBtn = function(city) {
+    var city = cityInputEl.value.trim();
+    for (var i = 0; i < saveKey.length; i++) {
+        var userCityBtn = document.createElement("button")
+        userCityBtn.classList = "btn btn-primary w-100 p-2";
+        userCityBtn.setAttribute('id', saveKey[i])
+        userCityBtn.textContent = saveKey[i];
+    } if (!city) {
+        alert("Please enter a valid city name");
+    }
+console.log(saveKey);
     cityBtn.appendChild(userCityBtn);
 };
 
 var updateCity = function() {
-    getCity(id);
-    getForecast(id);
-}
-
+    // for (var i = 0; i < saveKey.length; i++) {
+    //     cityBtn.getAttribute('id')
+    // if (cityBtn == saveKey[i])
+    getCity(cityBtn.value);
+    getForecast(cityBtn.value);
+    // };
+};
 
 cityBtn.addEventListener("click", updateCity);
 userFormEl.addEventListener("submit", formSubmitHandler);
