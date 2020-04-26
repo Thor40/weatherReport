@@ -27,3 +27,12 @@ THEN I am again presented with current and future conditions for that city
 #### - CSS was added for future changes but not implemented
 #### - jQuery was added for future changes but not implemented
 ### The API data was retrieved from https://openweathermap.org/
+
+### Following Bugs:
+```
+WHEN I click on saved city button
+THEN I am presented with current and future conditions for that city, but is displayed underneath previously displayed city data
+WHEN I click on another saved city button
+THEN I am presented with an error, pushing entire saved array of city names into the API fetch
+```
+#### I have been unable to fix this last feature bug.

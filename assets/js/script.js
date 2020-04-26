@@ -326,11 +326,10 @@ console.log(saveKey);
 };
 
 var updateCity = function(userCityBtn) {
-    // var btnId = userCityBtn.getAttribute('id')
     for (var i = 0; i < saveKey.length; i++) {
         if (userCityBtn = saveKey[i]) {
-            getCity(userCityBtn);
-            getForecast(userCityBtn);
+            getCity(id);
+            getForecast(id);
         }
     }
 };
