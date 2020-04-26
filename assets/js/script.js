@@ -281,10 +281,10 @@ var displayForecast = function(data) {
     };
 };
 
-// var removeCityContainer = function() {
-//     var remove = document.getElementById("removeContainer")
-//     remove.parentNode.replaceChild(removeContainer);
-// }
+var removeCityContainer = function() {
+    // var remove = document.getElementById("removeContainer")
+    // remove.parentNode.remove(remove);
+}
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -313,23 +313,26 @@ var createBtn = function(city) {
     var city = cityInputEl.value.trim();
     for (var i = 0; i < saveKey.length; i++) {
         var userCityBtn = document.createElement("button")
-        userCityBtn.classList = "btn btn-primary w-100 p-2";
+        userCityBtn.classList = "btn btn-primary w-100";
         userCityBtn.setAttribute('id', saveKey[i])
         userCityBtn.textContent = saveKey[i];
+
     } if (!city) {
         alert("Please enter a valid city name");
     }
 console.log(saveKey);
     cityBtn.appendChild(userCityBtn);
+    return userCityBtn;
 };
 
-var updateCity = function() {
-    // for (var i = 0; i < saveKey.length; i++) {
-    //     cityBtn.getAttribute('id')
-    // if (cityBtn == saveKey[i])
-    getCity(cityBtn.value);
-    getForecast(cityBtn.value);
-    // };
+var updateCity = function(userCityBtn) {
+    // var btnId = userCityBtn.getAttribute('id')
+    for (var i = 0; i < saveKey.length; i++) {
+        if (userCityBtn = saveKey[i]) {
+            getCity(userCityBtn);
+            getForecast(userCityBtn);
+        }
+    }
 };
 
 cityBtn.addEventListener("click", updateCity);
