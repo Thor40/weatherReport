@@ -52,7 +52,7 @@ var displayCity = function(data) {
     var removeContainer = document.createElement("div");
     removeContainer.setAttribute('id', "removeContainer");
     var iconcode = data.weather[0].icon;
-    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+    var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
 
     var setCurrentDate = currentDate;
     setCurrentDate.classList = "text-muted"
@@ -126,7 +126,7 @@ var displayForecast = function(data) {
 
     for (var i = 0; i < data.list.length; i+=8) {
         var iconcode = data.list[i].weather[0].icon;
-        var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        var iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
         var iconImg = document.createElement("img");
         iconImg.setAttribute("src", iconurl)
 
